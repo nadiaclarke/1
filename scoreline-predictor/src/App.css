@@ -1,0 +1,400 @@
+.app-shell {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 24px 20px 48px;
+}
+
+.app-header {
+  margin-bottom: 24px;
+}
+
+.app-header h1 {
+  font-size: 28px;
+  margin: 0 0 6px;
+}
+
+.app-subtitle {
+  color: var(--text-secondary);
+  margin: 0;
+  max-width: 60ch;
+}
+
+.app-grid {
+  display: grid;
+  grid-template-columns: minmax(280px, 360px) 1fr;
+  gap: 20px;
+  align-items: start;
+}
+
+@media (max-width: 800px) {
+  .app-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.results-column {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  min-width: 0;
+}
+
+.panel {
+  background: var(--surface-1);
+  border: 1px solid var(--border-hairline);
+  border-radius: 12px;
+  padding: 20px;
+  position: sticky;
+  top: 20px;
+}
+
+.results-column .panel {
+  position: static;
+}
+
+.panel-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.panel-title {
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0 0 12px;
+}
+
+.hint {
+  color: var(--text-secondary);
+  font-size: 13px;
+  margin: 0 0 14px;
+}
+
+.hint-inline {
+  color: var(--text-muted);
+  font-size: 12px;
+}
+
+.ghost-button {
+  background: transparent;
+  border: 1px solid var(--border-hairline);
+  color: var(--text-secondary);
+  border-radius: 8px;
+  padding: 6px 12px;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.ghost-button:hover {
+  border-color: var(--baseline);
+  color: var(--text-primary);
+}
+
+.team-name-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin: 14px 0;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 13px;
+}
+
+.field-label {
+  color: var(--text-secondary);
+}
+
+.field-input {
+  background: var(--page-plane);
+  border: 1px solid var(--border-hairline);
+  border-radius: 8px;
+  padding: 8px 10px;
+  color: var(--text-primary);
+  font-size: 14px;
+  font: inherit;
+}
+
+.field-input:focus-visible {
+  outline: 2px solid var(--series-home);
+  outline-offset: 1px;
+}
+
+.field-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+@media (max-width: 420px) {
+  .team-name-row,
+  .field-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.segmented {
+  display: flex;
+  background: var(--page-plane);
+  border: 1px solid var(--border-hairline);
+  border-radius: 8px;
+  padding: 3px;
+  margin-bottom: 16px;
+}
+
+.segmented-option {
+  flex: 1;
+  background: transparent;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 10px;
+  font-size: 13px;
+  color: var(--text-secondary);
+  cursor: pointer;
+}
+
+.segmented-option.active {
+  background: var(--surface-1);
+  color: var(--text-primary);
+  box-shadow: 0 1px 2px var(--border-hairline);
+  font-weight: 600;
+}
+
+.advanced-details {
+  margin-top: 8px;
+  font-size: 13px;
+}
+
+.advanced-details summary {
+  cursor: pointer;
+  color: var(--text-secondary);
+  font-weight: 600;
+}
+
+.advanced-body {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: 12px;
+}
+
+.checkbox-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--text-primary);
+}
+
+.checkbox-row input {
+  margin-top: 3px;
+}
+
+/* Results summary */
+
+.xg-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-top: 18px;
+}
+
+@media (max-width: 480px) {
+  .stat-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.stat-tile {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 12px 14px;
+  background: var(--page-plane);
+  border-radius: 10px;
+  border: 1px solid var(--border-hairline);
+}
+
+.stat-tile-label {
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.stat-tile-value {
+  font-size: 22px;
+  font-weight: 600;
+  font-variant-numeric: proportional-nums;
+}
+
+.outcome-meter {
+  display: flex;
+  height: 36px;
+  border-radius: 8px;
+  overflow: hidden;
+  gap: 2px;
+  background: var(--surface-1);
+}
+
+.outcome-meter-segment {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 600;
+  min-width: 2px;
+}
+
+.outcome-home {
+  background: var(--series-home);
+}
+
+.outcome-draw {
+  background: var(--series-draw);
+}
+
+.outcome-away {
+  background: var(--series-away);
+}
+
+.outcome-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 10px;
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.legend-swatch {
+  width: 10px;
+  height: 10px;
+  border-radius: 3px;
+  display: inline-block;
+}
+
+.legend-home {
+  background: var(--series-home);
+}
+
+.legend-draw {
+  background: var(--series-draw);
+}
+
+.legend-away {
+  background: var(--series-away);
+}
+
+/* Top scorelines */
+
+.scoreline-bars {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.scoreline-bar-row {
+  display: grid;
+  grid-template-columns: 20px 56px 1fr 52px;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+}
+
+.scoreline-rank {
+  color: var(--text-muted);
+  text-align: right;
+}
+
+.scoreline-label {
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.scoreline-track {
+  background: var(--page-plane);
+  border-radius: 6px;
+  height: 14px;
+  overflow: hidden;
+}
+
+.scoreline-fill {
+  background: var(--series-home);
+  height: 100%;
+  border-radius: 6px 4px 4px 6px;
+}
+
+.scoreline-value {
+  text-align: right;
+  color: var(--text-secondary);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Heatmap */
+
+.heatmap-scroll {
+  overflow-x: auto;
+}
+
+.heatmap-table {
+  border-collapse: separate;
+  border-spacing: 2px;
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+}
+
+.heatmap-corner {
+  color: var(--text-muted);
+  font-weight: 500;
+  font-size: 11px;
+  text-align: right;
+  padding: 6px 8px;
+  white-space: nowrap;
+}
+
+.heatmap-axis-label {
+  color: var(--text-secondary);
+  font-weight: 600;
+  text-align: center;
+  padding: 4px;
+  min-width: 34px;
+}
+
+.heatmap-cell {
+  text-align: center;
+  padding: 8px 4px;
+  border-radius: 4px;
+  min-width: 34px;
+}
+
+.heatmap-cell-max {
+  box-shadow: 0 0 0 2px var(--text-primary);
+}
+
+.app-footer {
+  margin-top: 28px;
+  color: var(--text-muted);
+  font-size: 12px;
+  max-width: 70ch;
+}
