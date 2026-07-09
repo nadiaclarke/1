@@ -1,4 +1,9 @@
-export type InputMode = 'quick' | 'teamStats';
+export type InputMode = 'quick' | 'teamStats' | 'worldCup2026';
+
+export interface WorldCup2026Inputs {
+  teamA: string;
+  teamB: string;
+}
 
 export interface QuickInputs {
   homeTeam: string;

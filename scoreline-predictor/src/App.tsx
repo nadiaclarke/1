@@ -13,7 +13,14 @@ import {
   overUnderProbability,
   topScorelines,
 } from './lib/poisson';
-import type { AdvancedSettings, InputMode, QuickInputs, TeamStatsInputs } from './lib/types';
+import type {
+  AdvancedSettings,
+  InputMode,
+  QuickInputs,
+  TeamStatsInputs,
+  WorldCup2026Inputs,
+} from './lib/types';
+import { expectedGoalsForFixture, WORLD_CUP_2026_QUARTERFINALS } from './lib/worldCup2026';
 
 const DEFAULT_QUICK: QuickInputs = {
   homeTeam: 'Home FC',
@@ -57,20 +64,32 @@ const EXAMPLE_TEAM_STATS: TeamStatsInputs = {
   awayTeamAwayGoalsAgainst: 1.9,
 };
 
+const DEFAULT_WORLD_CUP: WorldCup2026Inputs = {
+  teamA: WORLD_CUP_2026_QUARTERFINALS[0].teamA,
+  teamB: WORLD_CUP_2026_QUARTERFINALS[0].teamB,
+};
+
 const INTERNAL_MAX_GOALS = 12;
 
 export default function App() {
   const [mode, setMode] = useState<InputMode>('quick');
   const [quick, setQuick] = useState<QuickInputs>(DEFAULT_QUICK);
   const [teamStats, setTeamStats] = useState<TeamStatsInputs>(DEFAULT_TEAM_STATS);
+  const [worldCup, setWorldCup] = useState<WorldCup2026Inputs>(DEFAULT_WORLD_CUP);
   const [advanced, setAdvanced] = useState<AdvancedSettings>(DEFAULT_ADVANCED);
 
-  const homeTeam = mode === 'quick' ? quick.homeTeam : teamStats.homeTeam;
-  const awayTeam = mode === 'quick' ? quick.awayTeam : teamStats.awayTeam;
+  const homeTeam =
+    mode === 'quick' ? quick.homeTeam : mode === 'teamStats' ? teamStats.homeTeam : worldCup.teamA;
+  const awayTeam =
+    mode === 'quick' ? quick.awayTeam : mode === 'teamStats' ? teamStats.awayTeam : worldCup.teamB;
 
   const { lambdaHome, lambdaAway } = useMemo(() => {
     if (mode === 'quick') {
       return { lambdaHome: quick.homeXg, lambdaAway: quick.awayXg };
+    }
+    if (mode === 'worldCup2026') {
+      const { lambdaA, lambdaB } = expectedGoalsForFixture(worldCup.teamA, worldCup.teamB);
+      return { lambdaHome: lambdaA, lambdaAway: lambdaB };
     }
     return expectedGoalsFromTeamStats({
       leagueAvgHomeGoals: teamStats.leagueAvgHomeGoals,
@@ -80,7 +99,7 @@ export default function App() {
       awayTeamAwayGoalsFor: teamStats.awayTeamAwayGoalsFor,
       awayTeamAwayGoalsAgainst: teamStats.awayTeamAwayGoalsAgainst,
     });
-  }, [mode, quick, teamStats]);
+  }, [mode, quick, teamStats, worldCup]);
 
   const safeLambdaHome = Number.isFinite(lambdaHome) && lambdaHome >= 0 ? lambdaHome : 0;
   const safeLambdaAway = Number.isFinite(lambdaAway) && lambdaAway >= 0 ? lambdaAway : 0;
@@ -109,7 +128,7 @@ export default function App() {
   function handleLoadExample() {
     if (mode === 'quick') {
       setQuick(EXAMPLE_QUICK);
-    } else {
+    } else if (mode === 'teamStats') {
       setTeamStats(EXAMPLE_TEAM_STATS);
     }
   }
@@ -132,6 +151,8 @@ export default function App() {
           onQuickChange={setQuick}
           teamStats={teamStats}
           onTeamStatsChange={setTeamStats}
+          worldCup={worldCup}
+          onWorldCupChange={setWorldCup}
           advanced={advanced}
           onAdvancedChange={setAdvanced}
           onLoadExample={handleLoadExample}
